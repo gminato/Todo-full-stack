@@ -1,33 +1,17 @@
+require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
 const app = express();
 const port = 3000;
 
-const pg = require("pg");
-const pool = new pg.Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "todo",
-  password: "lol",
-  port: 5432,
-});
+const todoController = require('./src/controllers/todoController');
 
-app.use(express.json()); // Parse JSON-encoded bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-postTodoIntoDb = async (title, description) => {
-    await pool.query(`INSERT INTO todos (title, description) VALUES ($1, $2)`, [title, description]);
-}
-
-app.post('/todo',  (req, res) => {
-    console.log(req.body);
-    const { title, description } = req.body;
-    postTodoIntoDb(title, description);
-    res.send('Todo created!');
-});
-
-app.get('/todos', async (req, res) => {
-    const { rows } = await pool.query(`SELECT * FROM todos`);
-    res.send(rows);
+app.post('/todo', todoController.createTodo);
+app.get('/todos', todoController.getTodos);
+app.get('/',(req,res)=>{
+    res.send("Hello World");
 });
 
 app.listen(port, () => {
