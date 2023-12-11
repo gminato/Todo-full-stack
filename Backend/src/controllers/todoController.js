@@ -11,8 +11,6 @@ exports.createTodo = (req, res) => {
 };
 
 exports.getTodos = async (req, res) => {
-    // res.send('Get todos');  
-    console.log(pool);
     try {
         const { rows } = await pool?.query(`SELECT * FROM todos`);
         res.send(rows);
@@ -21,3 +19,14 @@ exports.getTodos = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
+exports.getUser = async (req, res) => {
+    try {
+        const { rows } = await pool?.query(`SELECT * FROM users`);
+        console.log(rows);
+        res.send(rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+}

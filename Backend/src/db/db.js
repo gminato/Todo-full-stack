@@ -7,10 +7,15 @@ const pool = new pg.Pool({
     database: process.env.DB_DATABASE,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
+    ssl: {
+        rejectUnauthorized: false
+    },
 });
 
-exports.postTodoIntoDb = async (title, description) => {
+
+const postTodoIntoDb = async (title, description) => {
     await pool.query(`INSERT INTO todos (title, description) VALUES ($1, $2)`, [title, description]);
 };
 
+module.exports = { pool, postTodoIntoDb }
 
