@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState,useRef,useEffect } from "react";
+
 
 const SignUp = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [passwordErrorMessages,setPasswordErrorMessages] = useState([]);
+
+
+
 
     const passwordHandler = (value) => {
         setPassword(value);
@@ -27,7 +31,7 @@ const SignUp = () => {
     };
     return (
         <>
-            <div className="h-screen w-full flex felx-col items-center justify-center">
+            <div ref={elementRef} className="h-screen w-full flex felx-col items-center justify-center" style = {{opacity: opacity}}>
                 <form className="w-1/2 p-12 flex flex-col items-center justify-center border-2 border-indigo-300 rounded-xl">
                     <h1 className="text-4xl font-bold text-indigo-800 ">Sign Up</h1>
                     <div className=" flex flex-col mt-8 w-1/2">

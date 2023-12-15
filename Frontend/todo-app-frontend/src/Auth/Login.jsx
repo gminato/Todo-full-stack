@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link , useNavigate} from 'react-router-dom';
+import FadeInAnimation from '../HelperComponent/FadeInAnimation';
 import SignUp from './SignUp';
 
 
@@ -11,6 +12,7 @@ const Login = () => {
 
     return (
         <>
+            <FadeInAnimation >
             <div className="h-screen w-full flex felx-col items-center justify-center">
                 <form className="p-12 flex flex-col items-center justify-center border-2 border-indigo-300 rounded-xl">
                     <h1 className="text-4xl font-bold text-indigo-800 ">Login</h1>
@@ -42,6 +44,7 @@ const Login = () => {
                     <p className="text-indigo-500 hover:text-indigo-700" ><Link to={'/signup'}>New User?Sign Up</Link></p>
                 </form>
             </div>
+            </FadeInAnimation>
         </>
     )
 }

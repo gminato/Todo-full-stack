@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Login from './Auth/Login.jsx';
 import SignUp from './Auth/SignUp.jsx';
-import Verify from './Auth/Verfity.jsx';
+import Verify from './Auth/Verify.jsx';
 import NotFound from './NotFound.jsx';
 
 
