@@ -1,9 +1,14 @@
 import { useState } from 'react';
+import { Link , useNavigate} from 'react-router-dom';
+import SignUp from './SignUp';
+
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
     
+
     return (
         <>
             <div className="h-screen w-full flex felx-col items-center justify-center">
@@ -34,6 +39,7 @@ const Login = () => {
                         />
                     </div>
                     <button className="w-40 h-10 mt-10 bg-indigo-500 rounded-md hover:bg-indigo-700 text-white" type="submit">Login</button>
+                    <p className="text-indigo-500 hover:text-indigo-700" ><Link to={'/signup'}>New User?Sign Up</Link></p>
                 </form>
             </div>
         </>

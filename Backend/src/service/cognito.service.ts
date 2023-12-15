@@ -6,7 +6,6 @@ import { CognitoIdentityProviderClient, ConfirmSignUpCommand,InitiateAuthCommand
 class CognitoSerice {
     private config = {
         region: process.env.AWS_REGION,
-        // secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     };
 
     private secretHash = process.env.COGNITO_SECRET_HASH;

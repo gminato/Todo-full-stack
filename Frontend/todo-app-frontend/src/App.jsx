@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { AuthContext } from './Context.jsx'
 import './App.css'
 import Todo from './Todo/Todo'
-import SignUp from './Auth/SignUp.jsx'
-import Login from './Auth/Login.jsx'; // Import the missing component
+import Login from './Auth/Login.jsx';
 
 function App() {
 
@@ -12,7 +11,7 @@ function App() {
   return (
     <>
       <AuthContext.Provider value={{ user }}>
-        {user ?  <Todo /> : <SignUp />}
+        {user ?  <Todo /> : <Login />}
       </AuthContext.Provider>
     </>
   )
