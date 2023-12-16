@@ -1,18 +1,17 @@
-import { useState } from 'react'
-import { AuthContext } from './Context.jsx'
+import { useState,useContext } from 'react'
+import { AuthContextProvider } from './AuthContext.jsx'
 import './App.css'
 import Todo from './Todo/Todo'
 import Login from './Auth/Login.jsx';
+import { AuthContext } from './AuthContext.jsx';
 
 function App() {
-
-  const [user, setUser] = useState(null)
+  const {data,updateData} = useContext(AuthContext);
 
   return (
     <>
-      <AuthContext.Provider value={{ user }}>
-        {user ?  <Todo /> : <Login />}
-      </AuthContext.Provider>
+      {console.log(data)}
+        {data ?  <Todo /> : <Login />}
     </>
   )
 }

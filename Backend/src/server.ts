@@ -3,6 +3,7 @@ import express from 'express';
 import App from './app';
 import HomeController from './controllers/HomeController';
 import AuthController from './controllers/AuthController';
+import cors from 'cors';
 
 const app = new App({
     port: 3000,
@@ -11,6 +12,7 @@ const app = new App({
         new AuthController(),
     ],
     middleWares: [
+        cors(),
         express.json(),
         express.urlencoded({extended: true}),
     ]

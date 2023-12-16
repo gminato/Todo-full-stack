@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {Request,Response} from 'express';
 import CognitoSerice from "../service/cognito.service";
+import CognitoService from "../service/cognito.service";
 
 class AuthController {
 
@@ -16,6 +17,7 @@ class AuthController {
         this.router.post(`${this.path}/login`, this.login);
         this.router.post(`${this.path}/signup`, this.signup);
         this.router.post(`${this.path}/verify`,this.verify);
+        this.router.post(`${this.path}/getUserInfo`, this.userInfo);
     }
 
     authSuccess = (request:Request, response:Response) => {
@@ -43,7 +45,7 @@ class AuthController {
             response.status(400).send('Invalid login body');
             return;
         }
-        response.send('Login success ${loginStatus}');
+        response.send(`${JSON.stringify(loginStatus)}`);
     }
 
     signup = async (request: Request, response: Response) => {
@@ -75,6 +77,16 @@ class AuthController {
             return;
         }
         response.send(`verify success}`);
+    }
+
+    userInfo = async (request: Request, response: Response) => {
+        console.log(request.body)
+        const userInfo = await new CognitoService().getUserData({AccessToken: request.body.AccessToken});
+        if (!userInfo) {
+            response.status(400).send('Invalid verify body');
+            return;
+        }
+        response.send(`${JSON.stringify(userInfo)}`);
     }
 }
 

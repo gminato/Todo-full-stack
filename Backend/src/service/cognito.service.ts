@@ -1,4 +1,4 @@
-import AWS from 'aws-sdk';
+import AWS, { CognitoIdentity } from 'aws-sdk';
 import * as CryptoJS from 'crypto-js';
 import { CognitoIdentityProviderClient, ConfirmSignUpCommand,InitiateAuthCommand,AuthEventType, AuthFlowType} from '@aws-sdk/client-cognito-identity-provider';
 
@@ -76,11 +76,34 @@ class CognitoSerice {
         };
         const command = new InitiateAuthCommand(input);
         const response = await client.send(command);
+        console.log("response",response.AuthenticationResult.AccessToken.toString());
         if (response.$metadata.httpStatusCode === 200) {
-            console.log(response);
-            return response.$metadata;
+            const params = {
+                AccessToken: response.AuthenticationResult.AccessToken.toString() /* required */
+            };
+            const userData = await this.getUserData(params);
+            return {
+                metadata: response.$metadata,
+                userData: userData,
+                accessToken: response.AuthenticationResult.AccessToken,
+            };
         }
+
         return false;
+    };
+
+    public getUserData = async (params: { AccessToken: string }) => {
+        return new Promise((resolve, reject) => {
+            this.congnitoIdentity.getUser(params, (err: any, data: any) => {
+                if (err) {
+                    console.log(err, err.stack);
+                    reject(err);
+                } else {
+                    console.log(data);
+                    resolve(data);
+                }
+            });
+        });
     };
 
 }
